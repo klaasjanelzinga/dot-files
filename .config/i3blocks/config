@@ -1,0 +1,105 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=10
+color=#939393
+
+# [testtime]
+# command=/home/klaasjan/projects/i3blocks/i3bar_time.py
+# interval=persist
+
+[funky]
+command=./intro.sh
+interval=60
+markup=pango
+
+[applications]
+label=
+command=./ports.sh
+interval=5
+
+[capture]
+LABEL=🎤
+MUTED_LABEL=off
+command=./pulse-volume.sh
+interval=30
+scontrol=Capture
+
+[master]
+LABEL=🎵
+MUTED_LABEL=off
+command=./pulse-volume.sh
+interval=30
+scontrol=Master
+
+[speakers]
+LABEL=🔊
+MUTED_LABEL=off
+command=./pulse-volume.sh
+interval=30
+scontrol=Speaker
+
+[bluetooth]
+command=./bluetooth.sh
+interval=60
+
+[brightness]
+LABEL=i
+command=./brightness.sh
+interval=60
+
+[power]
+LABEL=Power
+command=./dpms.sh
+interval=60
+
+[wifi]
+command=./wifi.sh
+interval=60
+markup=pango
+
+[disk]
+command=./disk.sh
+markup=pango
+interval=30
+
+[memory]
+command=./memory.sh
+interval=10
+markup=pango
+
+[swap]
+command=./memory.sh
+markup=pango
+interval=10
+instance=swap
+
+[load_average]
+command=./load.sh
+interval=10
+min_width=X 23.12
+markup=pango
+
+[cpu]
+command=i3blocks-contrib/cpu_usage2/cpu_usage2
+markup=pango
+interval=persist
+
+[battery]
+command=i3blocks-contrib/batterybar/batterybar
+label=⚡
+interval=30
+markup=pango
+min_width=bat: ■■■■■
+
+[time]
+command=./i3bar_time.py
+interval=persist
+
