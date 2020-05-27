@@ -1,0 +1,23 @@
+{
+  "check_version": "0.1",
+  "groups": [
+    {
+      "name": "infra",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 5432,
+          "host": "localhost",
+          "description": "postgres"
+        },
+        {
+          "type": "tcp",
+          "port": 5433,
+          "host": "localhost",
+          "description": "postgres, diana"
+        }
+      ]
+    }
+  ]
+
+}
