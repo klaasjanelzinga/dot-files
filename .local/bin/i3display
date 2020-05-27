@@ -1,0 +1,29 @@
+set -x 
+ws1="1:comms"
+ws2="2:iwebs"
+ws3="3:code"
+ws4="4:term"
+ws5="5:docker"
+ws6="6:chrome"
+ws7="7:primary"
+
+if [ $1 == "reset-to-default" ]; then
+	i3-msg "workspace $ws1 to output primary"
+	i3-msg "workspace $ws2 to output HDMI-2"
+	i3-msg "workspace $ws3 to output HDMI-2"
+	i3-msg "workspace $ws4 to output HDMI-2"
+	i3-msg "workspace $ws5 to output primary"
+	i3-msg "workspace $ws6 to output primary"
+	i3-msg "workspace $ws7 to output primary"
+fi
+
+if [ "$1" == "all-to-primary" ]; then
+
+	i3-msg "workspace $ws1 to output primary"
+	i3-msg "workspace $ws2 to output primary"
+	i3-msg "workspace $ws3 to output primary"
+	i3-msg "workspace $ws4 to output primary"
+	i3-msg "workspace $ws5 to output primary"
+	i3-msg "workspace $ws6 to output primary"
+	i3-msg "workspace $ws7 to output primary"
+fi

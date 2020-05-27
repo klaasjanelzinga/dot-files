@@ -1,0 +1,4 @@
+#!/bin/sh
+
+lock && sleep 1 && systemctl suspend
+exit 0
