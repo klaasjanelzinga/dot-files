@@ -2,14 +2,11 @@
 import datetime
 import enum
 import logging
-import os
-import selectors
 import sys
 from datetime import datetime, timedelta
-from fcntl import fcntl, F_SETFL, F_GETFL
-from typing import Optional
-
 from time import monotonic
+
+from i3blocks import MouseClick, start_event_loop, Spinner
 
 logging.basicConfig(filename="/home/klaasjan/projects/i3blocks/time-debug.log",
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -18,31 +15,12 @@ logging.basicConfig(filename="/home/klaasjan/projects/i3blocks/time-debug.log",
 logger = logging.getLogger(__name__)
 
 
-class MouseClick(enum.Enum):
-    LEFT = 1
-    MID = 2
-    RIGHT = 3
-    UP = 4
-    DOWN = 5
-
-
 class Mode(enum.Enum):
     TIME = "time-mode"
     STOPWATCH_STOPPED = "stopwatch-mode"
     STOPWATCH_RUNNING = "stopwatch-running-mode"
     STOPWATCH_READY = "stopwatch-ready"
     STOPWATCH_LAP = "stopwatch-lap"
-
-
-def got_keyboard_data(file) -> Optional[MouseClick]:
-    try:
-        read = file.read()
-        if read:
-            click = int(read.strip())
-            return MouseClick(click)
-        return None
-    except:
-        return None
 
 
 class Stopwatch:
@@ -124,29 +102,7 @@ class DatetimeFormatPicker:
         return self.display_functions[self.format_index]()
 
 
-class Spinner:
-
-    def __init__(self):
-        self.spinner = "⠁⠂⠄⡀⢀⠠⠐⠈"
-        self.spinner_index = 0
-        self.hold_offset = 1
-
-    def next_value(self) -> str:
-        self.spinner_index = self.spinner_index + 1 if self.spinner_index + 1 < len(self.spinner) else 0
-        return self.spinner[self.spinner_index]
-
-    def hold_value(self) -> str:
-        self.spinner_index = self.spinner_index + self.hold_offset if self.spinner_index + 1 < len(self.spinner) else 0
-        self.hold_offset *= -1
-        return self.spinner[self.spinner_index]
-
-
 def main():
-    orig_fl = fcntl(sys.stdin, F_GETFL)
-    fcntl(sys.stdin, F_SETFL, orig_fl | os.O_NONBLOCK)
-    stdin_selector = selectors.DefaultSelector();
-    stdin_selector.register(sys.stdin, selectors.EVENT_READ, None)
-
     current_mode = Mode.TIME
     stopwatch = Stopwatch()
     timeout = 1
@@ -178,42 +134,42 @@ def main():
             logger.error("Out of iffs")
         sys.stdout.flush()
 
-        # Select input from stdin. Using timeout to update the state machine.
-        for k, event in stdin_selector.select(timeout=timeout):
-            requested = got_keyboard_data(k.fileobj)
-            logger.debug(f"requested {requested} {current_mode}")
-            if requested == MouseClick.DOWN and current_mode == Mode.TIME:
+        def callback(mouseclick: MouseClick):
+            nonlocal current_mode, lap_counter
+            if mouseclick == MouseClick.DOWN and current_mode == Mode.TIME:
                 # Previous format.
                 display_format.previous_format()
-            elif requested == MouseClick.UP and current_mode == Mode.TIME:
+            elif mouseclick == MouseClick.UP and current_mode == Mode.TIME:
                 # Next format.
                 display_format.next_format()
-            elif requested == MouseClick.LEFT and current_mode == Mode.TIME:
+            elif mouseclick == MouseClick.LEFT and current_mode == Mode.TIME:
                 # Reset stopwatch.
                 current_mode = Mode.STOPWATCH_READY
                 stopwatch.reset()
-            elif requested == MouseClick.LEFT and current_mode == Mode.STOPWATCH_READY:
+            elif mouseclick == MouseClick.LEFT and current_mode == Mode.STOPWATCH_READY:
                 current_mode = Mode.STOPWATCH_RUNNING
                 stopwatch.start()
-            elif requested == MouseClick.LEFT and current_mode == Mode.STOPWATCH_STOPPED:
+            elif mouseclick == MouseClick.LEFT and current_mode == Mode.STOPWATCH_STOPPED:
                 # Start stopwatch.
                 current_mode = Mode.STOPWATCH_READY
                 stopwatch.reset()
-            elif requested == MouseClick.LEFT and current_mode == Mode.STOPWATCH_RUNNING:
+            elif mouseclick == MouseClick.LEFT and current_mode == Mode.STOPWATCH_RUNNING:
                 # Stop stopwatch.
                 current_mode = Mode.STOPWATCH_STOPPED
                 stopwatch.stop()
-            elif requested == MouseClick.MID:
+            elif mouseclick == MouseClick.MID:
                 # Reset to time.
                 current_mode = Mode.TIME
                 stopwatch.reset()
-            elif requested == MouseClick.RIGHT and current_mode == Mode.STOPWATCH_RUNNING:
+            elif mouseclick == MouseClick.RIGHT and current_mode == Mode.STOPWATCH_RUNNING:
                 # Register a lap.
                 stopwatch.lap()
                 current_mode = Mode.STOPWATCH_LAP
                 lap_counter = 0
             else:
                 logger.info("No events for this click!")
+
+        start_event_loop(timeout, callback)
 
 
 if __name__ == "__main__":

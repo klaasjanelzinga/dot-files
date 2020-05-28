@@ -9,12 +9,23 @@
           "port": 5432,
           "host": "localhost",
           "description": "postgres"
+        }
+      ]
+    },
+    {
+      "name": "application",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 9000,
+          "host": "localhost",
+          "description": "discover"
         },
         {
           "type": "tcp",
-          "port": 5433,
+          "port": 9001,
           "host": "localhost",
-          "description": "postgres, diana"
+          "description": "portal"
         }
       ]
     }
