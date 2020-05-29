@@ -22,8 +22,8 @@ markup=pango
 
 [applications]
 label=
-command=./ports.sh
-interval=5
+command=./i3bar_check_ports.py
+interval=persist
 
 [capture]
 LABEL=🎤

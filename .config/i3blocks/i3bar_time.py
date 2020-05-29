@@ -8,10 +8,10 @@ from time import monotonic
 
 from i3blocks import MouseClick, start_event_loop, Spinner
 
-logging.basicConfig(filename="/home/klaasjan/projects/i3blocks/time-debug.log",
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.DEBUG)
+# logging.basicConfig(filename="/home/klaasjan/projects/i3blocks/time-debug.log",
+#                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+#                     datefmt='%H:%M:%S',
+#                     level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
