@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Or use xrandr --output  HDMI-2 --brightness 0.6 
+
 case $BLOCK_BUTTON in
   2)
     max=$(brightnessctl m)
