@@ -35,9 +35,8 @@
           "description": "pgadmin"
         },
         {
-          "type": "tcp",
-          "port": 2181,
-          "host": "localhost",
+          "type": "bash",
+          "command": "echo srvr | nc -v localhost 2181",
           "description": "zookeeper"
         },
         {

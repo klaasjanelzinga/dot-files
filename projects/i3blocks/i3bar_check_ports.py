@@ -3,6 +3,7 @@ import enum
 import json
 import logging
 import socket
+import subprocess
 import sys
 import urllib.request
 from contextlib import closing
@@ -26,12 +27,13 @@ class OutputText(enum.Enum):
 @dataclass
 class Check:
     type: str
-    port: int
+    port: Optional[int]
     description: str
-    host: str
+    host: Optional[str]
     path: Optional[str]
     method: Optional[str]
     scheme: Optional[str]
+    command: Optional[str]
     group_name: str
 
 
@@ -59,11 +61,12 @@ class Settings:
                 self.config.groups.append(config_group)
                 for check in group['checks']:
                     config_check = Check(type=check['type'],
-                                         port=check['port'],
+                                         port=check.get('port'),
                                          description=check['description'],
-                                         host=check['host'],
+                                         host=check.get('host'),
                                          path=check.get('path'),
                                          method=check.get("method"),
+                                         command=check.get("command"),
                                          scheme=check.get("scheme"),
                                          group_name=config_group.name)
                     config_group.checks.append(config_check)
@@ -123,6 +126,21 @@ class HttpChecker:
         return CheckResult.failed(self.check)
 
 
+@dataclass
+class BashChecker:
+    check: Check
+
+    def do_check(self) -> CheckResult:
+        command = self.check.command
+        try:
+            completed_process = subprocess.run(['bash', "-c", command], capture_output=True)
+            if completed_process.returncode == 0:
+                return CheckResult.ok(self.check)
+        except Exception:
+            pass
+        return CheckResult.failed(self.check)
+
+
 class Mode(enum.Enum):
     SHORT = 1
     LONG = 2
@@ -149,9 +167,11 @@ def check_ports(settings: Settings) -> CheckResultPerGroup:
     for group in settings.config.groups:
         tcp_checkers = [TcpChecker(check=check) for check in group.checks if check.type == 'tcp']
         http_checkers = [HttpChecker(check=check) for check in group.checks if check.type == 'http']
+        bash_checkers = [BashChecker(check=check) for check in group.checks if check.type == 'bash']
 
         check_results = [tcp_check.do_check() for tcp_check in tcp_checkers]
         check_results.extend([http_check.do_check() for http_check in http_checkers])
+        check_results.extend([bash_check.do_check() for bash_check in bash_checkers])
 
         failed = [tcp_check_result for tcp_check_result in check_results if tcp_check_result.has_failed()]
         ok = [tcp_check_result for tcp_check_result in check_results if tcp_check_result.is_ok()]
