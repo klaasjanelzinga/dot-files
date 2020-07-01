@@ -139,3 +139,4 @@ function fix_window_title {
 # echo "\033]0;YOUR_TITLE_HERE\007
 export PROMPT_COMMAND="$PROMPT_COMMAND;fix_window_title"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+source <(kubectl completion bash)

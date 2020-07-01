@@ -84,7 +84,7 @@ instance=swap
 [load_average]
 command=./load.sh
 interval=10
-min_width=X 23.12
+min_width=XX xx.xxx
 markup=pango
 
 [cpu]
