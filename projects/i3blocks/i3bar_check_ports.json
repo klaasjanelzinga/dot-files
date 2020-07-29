@@ -29,12 +29,6 @@
           "description": "postgres"
         },
         {
-          "type": "tcp",
-          "port": 89,
-          "host": "localhost",
-          "description": "pgadmin"
-        },
-        {
           "type": "bash",
           "command": "echo srvr | nc -v localhost 2181",
           "description": "zookeeper"

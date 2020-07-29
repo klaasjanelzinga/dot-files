@@ -239,7 +239,7 @@ def main():
 
         # Set timeout to fast if any group is in flux.
         if result.any_group_in_flux:
-            timeout = .1
+            timeout = .5
         elif current_mode == Mode.LONG:
             timeout = .5
         else:
