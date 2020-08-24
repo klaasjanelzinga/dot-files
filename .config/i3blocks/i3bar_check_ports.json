@@ -1,0 +1,96 @@
+{
+  "check_version": "0.1",
+  "default_timeout": 2.0,
+  "groups": [
+    {
+      "name": "infra",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 5432,
+          "host": "localhost",
+          "description": "postgres"
+        },
+        {
+          "type": "tcp",
+          "port": 88,
+          "host": "localhost",
+          "description": "pgadmin"
+        }
+      ]
+    },
+    {
+      "name": "infra-diana",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 5433,
+          "host": "localhost",
+          "description": "postgres"
+        },
+        {
+          "type": "bash",
+          "command": "echo srvr | nc -v localhost 2181",
+          "description": "zookeeper"
+        },
+        {
+          "type": "tcp",
+          "port": 9092,
+          "host": "localhost",
+          "description": "kafka"
+        }
+      ]
+    },
+    {
+      "name": "application",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 8080,
+          "host": "localhost",
+          "description": "discover-webback"
+        },
+        {
+          "type": "tcp",
+          "port": 1080,
+          "host": "localhost",
+          "description": "mailcatcher"
+        },
+        {
+          "type": "tcp",
+          "port": 4222,
+          "host": "localhost",
+          "description": "nats"
+        },
+        {
+          "type": "tcp",
+          "port": 8001,
+          "host": "localhost",
+          "description": "portal-webback"
+        },
+        {
+          "type": "http",
+          "port": 8123,
+          "path": "/health",
+          "method": "HEAD",
+          "scheme": "http",
+          "host": "localhost",
+          "description": "factserver-healthcheck"
+        },
+        {
+          "type": "tcp",
+          "port": 9000,
+          "host": "localhost",
+          "description": "discover-webfront"
+        },
+        {
+          "type": "tcp",
+          "port": 9001,
+          "host": "localhost",
+          "description": "portal-webfront"
+        }
+      ]
+    }
+  ]
+
+}
