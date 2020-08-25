@@ -1,6 +1,6 @@
 file=$(find ~/pCloudDrive/klaasjan/pics/desktop/*.png |sort -R |tail -1)
 if [ $? -eq 0 ]; then
-  lock-multimonitor -i $file -a '-e -f' 
+  i3lock -i $file -e -f -t
 else
-  lock-multimonitor -a '-e -f' 
+  i3lock -e -f
 fi
