@@ -13,7 +13,7 @@ then
   git pull
   autoreconf -fi
   rm -rf build && mkdir -p build && cd build
-  ../configure
+  ../configure --disable-sanitizers --enable-debug=no
   make -j8
   i3 --moreversion
   echo "Install (will sudo)?"

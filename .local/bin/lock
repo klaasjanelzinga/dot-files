@@ -2,5 +2,5 @@ file=$(find ~/pCloudDrive/klaasjan/pics/desktop/*.png |sort -R |tail -1)
 if [ $? -eq 0 ]; then
   i3lock -i $file -e -f -t
 else
-  i3lock -e -f
+  i3lock -e -f --color 696969
 fi
