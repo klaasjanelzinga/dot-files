@@ -3,6 +3,23 @@
   "default_timeout": 2.0,
   "groups": [
     {
+      "name": "newsroom",
+      "checks": [
+        {
+          "type": "tcp",
+          "port": 4000,
+          "host": "localhost",
+          "description": "frontend"
+        },
+        {
+          "type": "tcp",
+          "port": 9080,
+          "host": "localhost",
+          "description": "api"
+        }
+      ]
+    },
+    {
       "name": "infra",
       "checks": [
         {
