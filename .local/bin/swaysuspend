@@ -1,0 +1,5 @@
+#!/bin/sh
+
+swlock
+systemctl suspend
+exit 0

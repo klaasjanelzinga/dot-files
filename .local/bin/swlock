@@ -1,0 +1,6 @@
+file=$(find ~/pCloudDrive/klaasjan/pics/desktop/*.png |sort -R |tail -1)
+if [ $? -eq 0 ]; then
+  swaylock -i $file -e -f -s fill
+else
+  swaylock -e -f --color 696969
+fi

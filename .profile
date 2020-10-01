@@ -26,6 +26,9 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+source ~/.local/bin/start-ssh-agent.sh
+
 export VISUAL=vi
 export EDITOR="$VISUAL"
 

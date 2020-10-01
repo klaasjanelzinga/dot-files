@@ -91,6 +91,13 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+
 # screenshots
 bindsym Ctrl+Shift+Print exec scrot -u ~/Pictures/%Y-%m-%dT%H:%M:%S.png 
 bindsym Ctrl+Print exec scrot -s ~/Pictures/%Y-%m-%dT%H:%M:%S.png
