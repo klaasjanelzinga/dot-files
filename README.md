@@ -13,5 +13,5 @@ https://www.atlassian.com/git/tutorials/dotfiles
     echo ".dotfiles" >> ~/.gitignore
     git clone --bare <git-repo-url> $HOME/.dotfiles
     dotfiles checkout
-    config config --local status.showUntrackedFiles no
+    dotfiles config --local status.showUntrackedFiles no
     
