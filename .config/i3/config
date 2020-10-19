@@ -284,12 +284,12 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 4 -locker blurlock -notify 20 -bell -notifier "notify-send Locking..."
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
-exec_always --no-startup-id pcloud
-
+exec --no-startup-id pcloud
+exec --no-startup-id xset dpms 600 1200 3600
 exec --no-startup-id xrandr --output HDMI2 --left-of eDP1
 exec --no-startup-id sleep 1; xrandr --output HDMI2 --auto
 exec --no-startup-id sleep 2; xrandr --output HDMI2 --left-of eDP1
