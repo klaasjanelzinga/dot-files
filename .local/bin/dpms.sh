@@ -28,10 +28,11 @@ case $new_level in
   systemctl suspend
   ;;
 1)
-  blurlock
+	ps aux | grep i3lock | grep -v grep >/dev/null
+	[ $? != 0 ] && blurlock
   ;;
 2)
-  notify-send "Locking..."
+	# Do not use notify, since it will trigger some x-events causing xidle to restart.
   ;;
 3)
   xrandr --output HDMI2 --brightness .25
