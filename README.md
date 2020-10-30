@@ -10,9 +10,12 @@ Set default browser:
 
 Aurs:
 
-- 	https://github.com/powerline/fonts 
+- https://github.com/powerline/fonts 
 - https://aur.archlinux.org/slack-desktop.git
-- 	https://aur.archlinux.org/teams.git 
-- 	https://aur.archlinux.org/termite-nocsd.git
+- https://aur.archlinux.org/teams.git 
+- https://aur.archlinux.org/termite-nocsd.git
 - https://aur.archlinux.org/xidlehook.git
 - https://github.com/ohmyzsh/ohmyzsh.git
+- https://sourcefoundry.org/hack/
+
+moretools 
