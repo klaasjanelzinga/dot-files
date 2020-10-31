@@ -18,4 +18,6 @@ Aurs:
 - https://github.com/ohmyzsh/ohmyzsh.git
 - https://sourcefoundry.org/hack/
 
-moretools 
+moreutils noto-fonts-cjk noto-fonts-emoji
+systemctl --user enable   ssh-agent
+

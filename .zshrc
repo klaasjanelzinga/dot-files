@@ -107,5 +107,5 @@ export WORKON_HOME=$HOME/virtualenvs
 export PROJECT_HOME=$HOME/projects
 source ~/.local/bin/virtualenvwrapper.sh
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/aur/dotfiles/ --work-tree=$HOME'
 
