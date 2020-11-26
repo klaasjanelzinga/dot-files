@@ -3,6 +3,20 @@
 new_level=$1
 
 case $new_level in
+"help" | "--help")
+	echo "dpms.sh arg"
+	echo " arg:"
+	echo "	start"
+	echo "	stop"
+	echo "	enable"
+	echo "	disable"
+	echo "	query"
+	echo "	help - this"
+	echo "	0 - suspend"
+	echo "	1 - lock"
+	echo "	3 - inactive"
+	echo "no arg is normalize"
+  ;;
 "start")
   # reset to defaults and start timers
   dpms.sh 
@@ -16,13 +30,13 @@ case $new_level in
   rm ~/.local/xidlehook.socket
   ;;
 "enable")
-  xidlehook-client --socket ../xidlehook.socket control --action enable
+  xidlehook-client --socket /.local/xidlehook.socket control --action enable
   ;;
 "disable")
-  xidlehook-client --socket ../xidlehook.socket control --action disable
+  xidlehook-client --socket ~/.local/xidlehook.socket control --action disable
   ;;
 "query")
-  xidlehook-client --socket ../xidlehook.socket query
+  xidlehook-client --socket ~/.local/xidlehook.socket query
   ;;
 0)
   systemctl suspend
@@ -35,13 +49,13 @@ case $new_level in
 	# Do not use notify, since it will trigger some x-events causing xidle to restart.
   ;;
 3)
-  xrandr --output HDMI2 --brightness .25
-  brightnessctl -q s 15%
+  xrandr --output HDMI2 --brightness .20
+  brightnessctl -q s 10%
   wallpaper.sh stop
   ;;
 *)
   xrandr --output HDMI2 --brightness 1
-  brightnessctl -q s 60%
+  brightnessctl -q s 50%
   nohup wallpaper.sh start </dev/null >~/.local/wallpaper-log 2>&1 &
   ;;
 esac
