@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 new_level=$1
+socket_file=~/.local/xidlehook.socket
 
 case $new_level in
 "help" | "--help")
@@ -20,23 +21,23 @@ case $new_level in
 "start")
   # reset to defaults and start timers
   dpms.sh 
-  xidlehook --socket ~/.local/xidlehook.socket \
+  xidlehook --socket ${socket_file} \
 		--timer 60  "dpms.sh 3" "dpms.sh" \
 		--timer 240 "dpms.sh 1" "dpms.sh" \
 		--timer 900 "dpms.sh 0" "dpms.sh"
   ;;
 "stop")
   pkill xidlehook
-  rm ~/.local/xidlehook.socket
+  rm ${socket_file}
   ;;
 "enable")
-  xidlehook-client --socket /.local/xidlehook.socket control --action enable
+  xidlehook-client --socket ${socket_file} control --action enable
   ;;
 "disable")
-  xidlehook-client --socket ~/.local/xidlehook.socket control --action disable
+  xidlehook-client --socket ${socket_file} control --action disable
   ;;
 "query")
-  xidlehook-client --socket ~/.local/xidlehook.socket query
+  xidlehook-client --socket ${socket_file}  query
   ;;
 0)
   systemctl suspend
