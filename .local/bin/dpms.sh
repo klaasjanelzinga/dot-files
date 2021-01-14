@@ -7,6 +7,7 @@ case $new_level in
 "help" | "--help")
 	echo "dpms.sh arg"
 	echo " arg:"
+	echo "	restart"
 	echo "	start"
 	echo "	stop"
 	echo "	enable"
@@ -18,6 +19,11 @@ case $new_level in
 	echo "	3 - inactive"
 	echo "no arg is normalize"
   ;;
+"restart")
+	i3-msg 'exec dpms.sh stop'
+	sleep 1
+	i3-msg 'exec dpms.sh start'
+	;;
 "start")
   # reset to defaults and start timers
   dpms.sh 
