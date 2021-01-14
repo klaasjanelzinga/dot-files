@@ -22,8 +22,8 @@ case $new_level in
   # reset to defaults and start timers
   dpms.sh 
   xidlehook --socket ${socket_file} \
-		--timer 60  "dpms.sh 3" "dpms.sh" \
-		--timer 240 "dpms.sh 1" "dpms.sh" \
+		--timer 120 "dpms.sh 3" "dpms.sh" \
+		--timer 360 "dpms.sh 1" "dpms.sh" \
 		--timer 900 "dpms.sh 0" "dpms.sh"
   ;;
 "stop")

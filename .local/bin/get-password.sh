@@ -4,6 +4,7 @@ if [ -z $1 ]; then
   echo "get-password.sh [ssh|a2bc|discover|gitlab-oauth|portal]"
   exit 1
 fi
+
 set -e
 SESSION_KEY=$(bw unlock --raw)
 bw sync --session $SESSION_KEY

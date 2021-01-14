@@ -106,6 +106,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+export AWS_VAULT_PROMPT=ykman
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
 alias vi=vim
